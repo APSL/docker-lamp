@@ -22,7 +22,7 @@ RUN \
 RUN \
     apt-get -y install apache2-mpm-prefork libapache2-mod-php5 \
             php5-mysql php5-gd php5-mcrypt php5-cli php5-memcached php5-memcache php5-curl unzip wget \
-            python python-distribute python-pip python-jinja2 memcached && apt-get clean
+            python python-distribute python-pip python-jinja2 && apt-get clean
 
 RUN apt-get -y install vim-tiny && apt-get clean
 
