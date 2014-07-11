@@ -43,6 +43,7 @@ ADD conf/apache2.conf /etc/apache2/
 ADD conf/security.conf /etc/apache2/conf-available/
 ADD conf/remoteip.conf /etc/apache2/mods-available/
 ADD conf/mpm_prefork.conf.tpl /etc/apache2/mods-available/
+ADD conf/apache-defaulthost.conf.tpl /etc/sites-available/app.conf.tpl
 RUN \
     rm /etc/apache2/sites-enabled/* -f ;\
     a2enmod rewrite ;\
@@ -56,6 +57,10 @@ RUN \
 RUN \
     mkdir -p /var/www/logs ;\
     rm -fr /var/www/html
+# apache start.sh run-parts configs
+ADD start.d/apache-defaulthost /etc/start.d/90-apache-defaulthost
+ADD start.d/apache-auth /etc/start.d/50-apache-auth
+ADD start.d/apache-prefork /etc/start.d/50-apache-prefork
 # end apache2
 
 #ssh
@@ -63,14 +68,16 @@ RUN \
     apt-get install openssh-server && apt-get clean ;\
     mkdir /var/run/sshd ;\
     chmod 0755 /var/run/sshd ;\
-    chmod 700 /root/.ssh ;\
+    mkdir /root/.ssh;chmod 700 /root/.ssh 
 ADD conf/pam-sshd /etc/pam.d/sshd
+ADD start.d/config-ssh /etc/start.d/10-config-ssh
 # end ssh
 
 #proftpd
 RUN apt-get install proftpd-basic && apt-get clean 
 ADD conf/proftpd.conf /etc/proftpd/proftpd.conf
 ADD conf/sftp.conf /etc/proftpd/conf.d/
+ADD start.d/config-sftp /etc/start.d/10-config-sftp
 
 # logrotate + cron
 ADD conf/crontab /etc/crontab
@@ -80,7 +87,11 @@ ADD conf/logrotate.conf /etc/logrotate.conf
 ADD conf/circus.ini  /etc/
 
 # start script
-ADD conf/start.sh /bin/
+ADD start.sh /bin/
+
+# app
+ADD www /app/www
+RUN mkdir /app/logs
 
 EXPOSE 80 22 2221
 CMD /bin/start.sh

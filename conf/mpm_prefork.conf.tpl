@@ -6,6 +6,7 @@
 	MaxSpareServers		 {{ WORKERS_SPARE | default(10) }}
 	MaxRequestWorkers	  {{ WORKERS_MAX | default (100) }}
 	MaxClients	  {{ WORKERS_MAX | default (100) }}
+	ServerLimit	  {{ WORKERS_MAX | default (100) }}
 	MaxConnectionsPerChild   0
 </IfModule>
 
