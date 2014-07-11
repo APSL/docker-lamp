@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# def sftp user
+if [[ -n $SFTP_USER ]];then
+echo "---> Setting SFTP user passwd..."
+echo $SFTP_USER |chpasswd
+fi

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ -n $BASIC_AUTH ]]; then
+echo "---> Configuring apache  basic auth"
+echo $BASIC_AUTH > /etc/apache2/basic-auth
+envtpl /etc/apache2/conf-available/basic-auth.conf.tpl  --allow-missing 
+a2enconf basic-auth
+fi

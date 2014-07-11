@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "---> Configuring ssh authorized_key..."
+echo $SSH_KEY > /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys

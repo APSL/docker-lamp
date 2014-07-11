@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "---> Configuring apache mpm prefork module..."
+envtpl /etc/apache2/mods-available/mpm_prefork.conf.tpl  --allow-missing 

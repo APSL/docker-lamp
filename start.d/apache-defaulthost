@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# if there is no site enabled (from inherited docker), configure default
+if [[ -z $(ls /etc/apache2/sites-enabled/) ]]; then
+echo "---> Configuring apache default vhost..."
+envtpl /etc/apache2/sites-available/app.conf.tpl
+a2ensite app
+fi
