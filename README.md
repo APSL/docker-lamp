@@ -1,6 +1,24 @@
-========================
-Docker LAMP base project
-========================
+=============================
+Docker APSL LAMP base project
+=============================
+
+Apache image managed with circus. Config parameters with envtpl. apache, proftpd and sshd managed by circus.
+
+Description
+===========
+
+Apache generic image with these features:
+
+Work in progress. This image is intended to be used as base Dockerfile for
+projects where you should need sftp and ssh access. But probably, if you need
+ssh access, you are doing it wrong ;)
+http://jpetazzo.github.io/2014/06/23/docker-ssh-considered-evil/
+
+* envtpl to configure apache mpm prefork parameters. Also can be used for inherited Dockerfiles.
+* circus to control processes. http://circus.readthedocs.org/
+* sshd
+* proftpd for sftp
+* single cron for apache logrotation
 
 Get started
 ===========
@@ -16,14 +34,19 @@ Get started
 
 3. run::
 
-    bin/lamp start
+    docker run  -p 8080:80 apsl/lamp 
 
-OR use docker hub: 
+OR use docker registry hub: 
 
 1. pull: 
     docker pull apsl/lamp
 
 2. run: 
-    docker run  apsl/lamp 
+    docker run  -p 8080:80 apsl/lamp 
+
+
+lamp script usage
+=================
+TODO
 
 
