@@ -20,6 +20,11 @@ http://jpetazzo.github.io/2014/06/23/docker-ssh-considered-evil/
 * proftpd for sftp
 * single cron for apache logrotation
 
+See base image *apsl/circusbase* for more info:
+
+https://registry.hub.docker.com/u/apsl/circusbase/
+https://github.com/APSL/docker-circusbase
+
 Get started
 ===========
 
