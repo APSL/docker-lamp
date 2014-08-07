@@ -1,4 +1,4 @@
-FROM apsl/circusbase
+FROM apsl/circusbase:latest
 
 MAINTAINER  APSL <bcabezas@apsl.net>
 
