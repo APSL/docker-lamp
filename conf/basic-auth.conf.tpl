@@ -1,8 +1,8 @@
+{% if BASIC_AUTH_ENABLED %}
 <Directory />
-    {% if BASIC_AUTH %}
     AuthType Basic
-    AuthName "{{ AUTHNAME| default('Restricted') }}"
+    AuthName "{{ BASIC_AUTHNAME| default('Restricted') }}"
     AuthUserFile /etc/apache2/basic-access
     Require valid-user
-    {% endif %}
 </Directory>
+{% endif %}

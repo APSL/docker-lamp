@@ -1,8 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env python
 
-if [[ -n $BASIC_AUTH ]]; then
-echo "---> Configuring apache  basic auth"
-echo $BASIC_AUTH > /etc/apache2/basic-auth
-envtpl /etc/apache2/conf-available/basic-auth.conf.tpl  --allow-missing 
-a2enconf basic-auth
-fi
+import os
+from subprocess import call
+
+try:
+    user, passwd = os.environ.get("BASIC_AUTH", '').split(':')
+except:
+    print "No valid user/passwd setings found in $BASIC_AUTH. Skipping.."
+else:
+    print "---> Configuring apache  basic auth"
+    call(["htpasswd", "-b", "-c", "/etc/apache2/basic-access",
+            user, passwd])
+    call(["envtpl", "/etc/apache2/conf-available/basic-auth.conf.tpl",
+            "--allow-missing"])
+    call(["a2enconf", "basic-auth"])
+    print "apache basic auth done."

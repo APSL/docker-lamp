@@ -7,8 +7,8 @@ RUN \
     apt-get -y install \
             apache2-mpm-prefork libapache2-mod-php5 php5-mysql \
             php5-gd php5-mcrypt php5-cli php5-memcached \
-            php5-memcache php5-curl \
-            && apt-get clean
+            php5-memcache php5-curl apache2-utils \
+    && apt-get clean
 
 ADD conf/apache2.conf /etc/apache2/
 ADD conf/security.conf /etc/apache2/conf-available/
@@ -26,9 +26,9 @@ RUN \
     php5enmod memcached ;\
     php5enmod opcache  
 # apache setup run-parts configs (see parent image)
-ADD setup.d/apache-defaulthost /etc/setup.d/90-apache-defaulthost
+ADD setup.d/apache-defaulthost /etc/setup.d/95-apache-defaulthost
+ADD setup.d/apache-prefork /etc/setup.d/10-apache-prefork
 ADD setup.d/apache-auth /etc/setup.d/50-apache-auth
-ADD setup.d/apache-prefork /etc/setup.d/50-apache-prefork
 ADD circus.d/apache.ini /etc/circus.d/
 # end apache2
 

@@ -25,8 +25,54 @@ See base image *apsl/circusbase* for more info:
 https://registry.hub.docker.com/u/apsl/circusbase/
 https://github.com/APSL/docker-circusbase
 
+
+Environ vars
+============
+
+Below you have a list of configurable env vars with default values shown.
+
+Apache mpm prefork settings (*see conf/mpm_prefork.conf.tpl*)::
+
+    -e WORKERS_MIN=5     # sets StartServers and MinSpareServers
+    -e WORKERS_SPARE=10  # sets MaxSpareServers
+    -e WORKERS_MAX=100   # sets Maxclients and ServerLimit
+
+Default virtualhost::
+
+    -e DOMAIN=hostname   # defaults to container hostname. see conf/default-vhost.tpl
+
+Apache basic auth::
+
+    -e BASIC_AUTH=myuser:mypasswd   # disabled by default
+
+If configured, it will add http basic auth for all hosts
+
+SFTP/SSH user:: 
+
+    -e FTP_USER=myuser:mypasswd     # disabled by default
+
+SSH public key::
+
+    -e SSH_KEY="ssh-dss AAAA...."   # disabled by default
+
+
+Exposed ports
+=============
+
+* 80: apache
+* 22: sshd if enabled
+* 2221: proftpd if enabled
+
+
 Get started
 ===========
+
+For an example using as a base image, see apsl/wordpress:
+
+https://registry.hub.docker.com/u/apsl/wordpress/dockerfile/
+
+Using standalone
+----------------
 
 1. clone::
 
@@ -39,7 +85,7 @@ Get started
 
 3. run::
 
-    docker run  -p 8080:80 apsl/lamp 
+    docker run -v /var/www:/app/www -p 80:80 lamp 
 
 OR use docker registry hub: 
 
@@ -47,11 +93,6 @@ OR use docker registry hub:
     docker pull apsl/lamp
 
 2. run: 
-    docker run  -p 8080:80 apsl/lamp 
-
-
-lamp script usage
-=================
-TODO
+    docker run  -p 80:80 apsl/lamp 
 
 
