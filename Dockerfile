@@ -34,11 +34,11 @@ ADD circus.d/apache.ini /etc/circus.d/
 
 #ssh
 RUN \
-    apt-get install openssh-server && apt-get clean ;\
-    mkdir /var/run/sshd ;\
-    chmod 0755 /var/run/sshd ;\
-    mkdir /root/.ssh;chmod 700 /root/.ssh 
-ADD conf/pam-sshd /etc/pam.d/sshd
+    apt-get install openssh-server && apt-get clean && \
+    mkdir /var/run/sshd && \
+    chmod 0755 /var/run/sshd && \
+    mkdir /root/.ssh;chmod 700 /root/.ssh && \
+    sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd
 ADD setup.d/config-ssh /etc/setup.d/10-config-ssh
 ADD circus.d/sshd.ini /etc/circus.d/
 # end ssh
