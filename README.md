@@ -44,6 +44,7 @@ Default virtualhost::
 Apache basic auth::
 
     -e BASIC_AUTH=myuser:mypasswd   # disabled by default
+    -e BASIC_AUTH_NAME="Restricted" # AuthName, authorizacion realm for HTTP authentication
 
 If configured, it will add http basic auth for all hosts
 

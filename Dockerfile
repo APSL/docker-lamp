@@ -14,6 +14,8 @@ ADD conf/apache2.conf /etc/apache2/
 ADD conf/security.conf /etc/apache2/conf-available/
 ADD conf/remoteip.conf /etc/apache2/mods-available/
 ADD conf/mpm_prefork.conf.tpl /etc/apache2/mods-available/
+
+ADD conf/basic-auth.conf.tpl /etc/apache2/conf-available/basic-auth.conf.tpl
 ADD conf/apache-defaulthost.conf.tpl /etc/apache2/sites-available/app.conf.tpl
 RUN \
     rm /etc/apache2/sites-enabled/* -f ;\
