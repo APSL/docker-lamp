@@ -104,10 +104,10 @@ Include ports.conf
 <Directory /app/www/>
 	Options None
 	AllowOverride None
-    {% if BASIC_AUTH %}
-	Require all granted
+    {% if BASIC_AUTH is defined %}
+        Require valid-user
     {% else %}
-    Require valid-user
+	    Require all granted
     {% endif %}
 </Directory>
 

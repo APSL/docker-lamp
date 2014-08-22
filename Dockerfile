@@ -32,14 +32,9 @@ RUN \
             php5-memcache php5-curl apache2-utils \
     && apt-get clean
 
-ADD conf/apache2.conf /etc/apache2/
 ADD conf/security.conf /etc/apache2/conf-available/
 ADD conf/remoteip.conf /etc/apache2/mods-available/
 ADD conf/mpm_prefork.conf.tpl /etc/apache2/mods-available/
-
-ADD conf/apache2.conf.tpl /etc/apache2/
-ADD conf/basic-auth.conf.tpl /etc/apache2/conf-available/
-ADD conf/apache-defaulthost.conf.tpl /etc/apache2/sites-available/app.conf.tpl
 RUN \
     rm /etc/apache2/sites-enabled/* -f ;\
     a2enmod rewrite ;\
@@ -50,10 +45,15 @@ RUN \
     php5enmod mcrypt ;\
     php5enmod memcached ;\
     php5enmod opcache  
+
+ADD conf/apache2.conf.tpl /etc/apache2/
+ADD conf/basic-auth.conf.tpl /etc/apache2/conf-available/
+ADD conf/apache-defaulthost.conf.tpl /etc/apache2/sites-available/app.conf.tpl
 # apache setup run-parts configs (see parent image)
 ADD setup.d/apache-defaulthost /etc/setup.d/95-apache-defaulthost
 ADD setup.d/apache-prefork /etc/setup.d/10-apache-prefork
 ADD setup.d/apache-auth /etc/setup.d/50-apache-auth
+ADD setup.d/apache2 /etc/setup.d/50-apache2
 ADD circus.d/apache.ini /etc/circus.d/
 # end apache2
 
