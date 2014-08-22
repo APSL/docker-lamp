@@ -133,6 +133,18 @@ AccessFileName .htaccess
 <FilesMatch "^\.ht">
 	Require all denied
 </FilesMatch>
+<Directory ~ "\.svn">
+    Order allow,deny
+    Deny from all
+</Directory>
+<Directory ~ "\.git">
+    Order allow,deny
+    Deny from all
+</Directory>
+<Directory ~ "\.hg">
+    Order allow,deny
+    Deny from all
+</Directory>
 
 
 #

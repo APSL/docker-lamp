@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "---> Configuring apache2 main file..."
+envtpl /etc/apache2/apache2.conf.tpl  --allow-missing 
