@@ -64,4 +64,4 @@ ADD www /app/www
 RUN mkdir /app/logs
 
 EXPOSE 80 22 2221
-CMD /bin/start.sh
+CMD ["/bin/start.sh"]
