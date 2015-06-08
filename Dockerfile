@@ -1,5 +1,5 @@
 FROM apsl/circusbase:latest
-AINTAINER  APSL <bcabezas@apsl.net>
+MAINTAINER  APSL <bcabezas@apsl.net>
 
 #ssh
 RUN \
